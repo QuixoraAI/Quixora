@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quixora — AI-powered business automation assistant. Build Power Automate flows, email templates, SharePoint setups, Excel automation and more. No technical knowledge needed.">
+<meta name="keywords" content="Power Automate, business automation, email templates, SharePoint, Excel automation, AI assistant, Microsoft 365, office automation">
+<meta property="og:title" content="Quixora — Business Automation Made Simple">
+<meta property="og:description" content="Turn plain English into Power Automate flows, email templates, SharePoint setups and Excel tools. Anyone can use it.">
+<meta property="og:type" content="website">
+<title>Quixora — Business Automation Made Simple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --blue: #1E90FF;
+  --blue-bright: #3AABFF;
+  --blue-dim: #0A5FA8;
+  --blue-glow: rgba(30,144,255,0.18);
+  --blue-subtle: rgba(30,144,255,0.08);
+  --black: #07080A;
+  --surface: #0D0F13;
+  --surface2: #141720;
+  --surface3: #1B1F2A;
+  --border: rgba(255,255,255,0.07);
+  --border-blue: rgba(30,144,255,0.3);
+  --text: #F0F2F5;
+  --text2: #8B90A0;
+  --text3: #555A6A;
+  --radius: 10px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(7,8,10,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: var(--text); text-decoration: none; letter-spacing: -0.3px;
+}
+.nav-logo .q-mark {
+  width: 32px; height: 32px; background: var(--blue); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff;
+  box-shadow: 0 0 18px var(--blue-glow);
+}
+.nav-links { display: flex; align-items: center; gap: 0.25rem; }
+.nav-links a {
+  color: var(--text2); text-decoration: none; font-size: 14px;
+  padding: 6px 14px; border-radius: 7px; transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface3); }
+.nav-cta {
+  background: var(--blue); color: #fff !important; font-weight: 500;
+  box-shadow: 0 0 14px var(--blue-glow);
+}
+.nav-cta:hover { background: var(--blue-bright) !important; }
+
+/* ── SECTIONS ── */
+.page { display: none; padding-top: 60px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - 60px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem 3rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,144,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--blue-bright); background: var(--blue-subtle);
+  border: 1px solid var(--border-blue); border-radius: 20px;
+  padding: 5px 14px; margin-bottom: 2rem;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700; line-height: 1.1; letter-spacing: -1.5px;
+  color: var(--text); margin-bottom: 1.5rem; max-width: 800px;
+}
+.hero h1 span { color: var(--blue); }
+.hero p {
+  font-size: 17px; color: var(--text2); max-width: 540px;
+  margin-bottom: 2.5rem; line-height: 1.7;
+}
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: #fff; padding: 12px 28px;
+  border-radius: 9px; font-size: 15px; font-weight: 500; border: none;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 0 24px var(--blue-glow); transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--blue-bright); transform: translateY(-1px); box-shadow: 0 0 32px var(--blue-glow); }
+.btn-secondary {
+  background: transparent; color: var(--text2); padding: 12px 28px;
+  border-radius: 9px; font-size: 15px; font-weight: 500;
+  border: 1px solid var(--border); cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--border-blue); color: var(--text); background: var(--blue-subtle); }
+
+.hero-tools {
+  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  margin-top: 3.5rem; max-width: 600px;
+}
+.tool-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; color: var(--text2); background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px;
+}
+.tool-pill i { font-size: 15px; color: var(--blue); }
+
+/* ── HOW IT WORKS ── */
+.section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.75rem;
+}
+.section h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1rem;
+}
+.section .sub { font-size: 16px; color: var(--text2); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.step-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+.step-card:hover { border-color: var(--border-blue); }
+.step-num {
+  width: 36px; height: 36px; background: var(--blue-subtle);
+  border: 1px solid var(--border-blue); border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--blue); margin-bottom: 1rem;
+}
+.step-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.4rem; }
+.step-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── TOOLS GRID ── */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+.tool-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.5rem; cursor: pointer;
+  transition: all 0.2s; text-align: left;
+}
+.tool-card:hover { border-color: var(--border-blue); background: var(--surface3); transform: translateY(-2px); }
+.tool-card-icon {
+  width: 44px; height: 44px; background: var(--blue-subtle);
+  border: 1px solid var(--border-blue); border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: var(--blue); margin-bottom: 1rem;
+}
+.tool-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.35rem; }
+.tool-card p { font-size: 13px; color: var(--text2); line-height: 1.55; margin-bottom: 0.75rem; }
+.tool-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 11px; padding: 3px 8px; border-radius: 5px;
+  background: var(--surface3); color: var(--text3); border: 1px solid var(--border);
+}
+
+/* ── ASSISTANT PAGE ── */
+.assistant-layout {
+  display: flex; height: calc(100vh - 60px);
+}
+.sidebar {
+  width: 240px; background: var(--surface); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+}
+.sidebar-top { padding: 1rem; border-bottom: 1px solid var(--border); }
+.sidebar-section-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); padding: 0.75rem 1rem 0.4rem;
+}
+.tool-nav-btn {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 9px 1rem; border: none; background: transparent;
+  color: var(--text2); font-size: 13.5px; cursor: pointer; border-radius: 0;
+  text-align: left; transition: all 0.15s; font-family: var(--font-body);
+}
+.tool-nav-btn:hover { background: var(--surface2); color: var(--text); }
+.tool-nav-btn.active { background: var(--blue-subtle); color: var(--blue); border-right: 2px solid var(--blue); }
+.tool-nav-btn i { font-size: 17px; flex-shrink: 0; }
+.tool-nav-btn .badge {
+  margin-left: auto; font-size: 10px; background: var(--blue-subtle);
+  color: var(--blue); border-radius: 4px; padding: 2px 6px; font-weight: 600;
+}
+
+.chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.chat-topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 0.9rem 1.5rem; display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.chat-topbar-icon { font-size: 20px; color: var(--blue); }
+.chat-topbar-info h2 { font-size: 15px; font-weight: 600; }
+.chat-topbar-info p { font-size: 12px; color: var(--text2); }
+.chat-topbar-actions { margin-left: auto; display: flex; gap: 8px; }
+.icon-btn {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text2); font-size: 15px; transition: all 0.15s;
+}
+.icon-btn:hover { border-color: var(--border-blue); color: var(--blue); }
+
+.messages {
+  flex: 1; overflow-y: auto; padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  scroll-behavior: smooth;
+}
+.msg { display: flex; gap: 10px; align-items: flex-start; max-width: 100%; }
+.msg.user { flex-direction: row-reverse; }
+.avatar {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;
+}
+.avatar.ai { background: var(--blue-subtle); border: 1px solid var(--border-blue); color: var(--blue); }
+.avatar.user { background: var(--surface3); border: 1px solid var(--border); color: var(--text2); }
+.bubble {
+  max-width: 75%; padding: 0.7rem 1rem; border-radius: 12px;
+  font-size: 14px; line-height: 1.65;
+}
+.bubble.ai {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: 4px 12px 12px 12px;
+}
+.bubble.user {
+  background: var(--blue-dim); color: #fff; border-radius: 12px 4px 12px 12px;
+}
+.bubble pre {
+  background: var(--black); border: 1px solid var(--border);
+  border-radius: 7px; padding: 0.9rem 1rem; font-size: 12px;
+  font-family: 'Courier New', monospace; white-space: pre-wrap;
+  margin-top: 0.6rem; color: #a8d8ff; overflow-x: auto;
+}
+.copy-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--surface3);
+  color: var(--text2); cursor: pointer; transition: all 0.15s; font-family: var(--font-body);
+}
+.copy-btn:hover { border-color: var(--border-blue); color: var(--blue); }
+.copy-btn.done { color: #3ABFA0; border-color: rgba(58,191,160,0.3); }
+
+.quick-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+.chip {
+  font-size: 12.5px; padding: 6px 13px; border-radius: 7px; cursor: pointer;
+  border: 1px solid var(--border-blue); background: var(--blue-subtle); color: var(--blue);
+  transition: all 0.15s; font-family: var(--font-body);
+}
+.chip:hover { background: rgba(30,144,255,0.18); }
+
+.input-bar {
+  padding: 1rem 1.5rem; background: var(--surface);
+  border-top: 1px solid var(--border); flex-shrink: 0;
+}
+.input-inner { display: flex; gap: 10px; align-items: flex-end; }
+.input-inner textarea {
+  flex: 1; resize: none; border-radius: 10px; padding: 10px 14px;
+  font-size: 14px; line-height: 1.5; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text); font-family: var(--font-body);
+  min-height: 44px; max-height: 130px; outline: none; transition: border-color 0.15s;
+}
+.input-inner textarea:focus { border-color: var(--border-blue); }
+.input-inner textarea::placeholder { color: var(--text3); }
+.send-btn {
+  width: 44px; height: 44px; border-radius: 10px; border: none;
+  background: var(--blue); color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0; transition: all 0.15s;
+  box-shadow: 0 0 14px var(--blue-glow);
+}
+.send-btn:hover { background: var(--blue-bright); }
+.input-hint { font-size: 11px; color: var(--text3); margin-top: 6px; }
+
+.typing-bubble { display: flex; gap: 4px; padding: 10px 14px; align-items: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); animation: pulse 1.2s infinite; }
+.dot:nth-child(2){animation-delay:.2s} .dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+/* ── DIVIDER ── */
+.page-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 2rem; text-align: center;
+}
+footer p { font-size: 13px; color: var(--text3); }
+footer a { color: var(--blue); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <div class="q-mark">Q</div>
+    Quixora
+  </a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('home'); setTimeout(()=>document.getElementById('tools-section').scrollIntoView({behavior:'smooth'}),100)">Tools</a>
+    <a href="#" onclick="showPage('home'); setTimeout(()=>document.getElementById('how-section').scrollIntoView({behavior:'smooth'}),100)">How it works</a>
+    <a href="#" class="nav-cta" onclick="showPage('assistant')">Open assistant →</a>
+  </div>
+</nav>
+
+<!-- ══════════════════ HOME PAGE ══════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-bolt"></i> AI-powered business automation</div>
+    <h1>Microsoft tools made<br><span>simple for everyone</span></h1>
+    <p>Describe what your business needs in plain English. Quixora builds the Power Automate flows, email templates, SharePoint structures and Excel tools — no tech skills required.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#" onclick="showPage('assistant')"><i class="ti ti-message-circle"></i> Start now — it's free</a>
+      <a class="btn-secondary" href="#" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'})"><i class="ti ti-play"></i> See how it works</a>
+    </div>
+    <div class="hero-tools">
+      <span class="tool-pill"><i class="ti ti-refresh"></i> Power Automate</span>
+      <span class="tool-pill"><i class="ti ti-mail"></i> Outlook</span>
+      <span class="tool-pill"><i class="ti ti-brand-sharepoint"></i> SharePoint</span>
+      <span class="tool-pill"><i class="ti ti-table"></i> Excel</span>
+      <span class="tool-pill"><i class="ti ti-clipboard-list"></i> Forms</span>
+      <span class="tool-pill"><i class="ti ti-brand-teams"></i> Teams</span>
+    </div>
+  </section>
+
+  <hr class="page-divider">
+
+  <!-- How it works -->
+  <section class="section" id="how-section">
+    <div class="section-label">How it works</div>
+    <h2>Three steps. No jargon.</h2>
+    <p class="sub">Anyone in your business can use Quixora — from the CEO to someone who barely uses a computer.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Pick your tool</h3>
+        <p>Choose what area you need help with — emails, automations, spreadsheets, SharePoint, and more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Describe what you need</h3>
+        <p>Type it in plain English, the way you'd explain it to a colleague. No technical terms needed.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Get it instantly</h3>
+        <p>Quixora generates ready-to-use flows, templates, and guides. Copy, paste, and go.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="page-divider">
+
+  <!-- Tools -->
+  <section class="section" id="tools-section">
+    <div class="section-label">What Quixora can do</div>
+    <h2>Every tool your business needs</h2>
+    <p class="sub">Click any tool below to open the assistant and start building straight away.</p>
+    <div class="tools-grid">
+      <div class="tool-card" onclick="openTool('automate')">
+        <div class="tool-card-icon"><i class="ti ti-refresh"></i></div>
+        <h3>Power Automate flows</h3>
+        <p>Build step-by-step automation flows for approvals, alerts, data transfers, and repetitive tasks.</p>
+        <div class="tool-card-tags"><span class="tag">Approvals</span><span class="tag">Alerts</span><span class="tag">Scheduling</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('email')">
+        <div class="tool-card-icon"><i class="ti ti-mail"></i></div>
+        <h3>Email templates</h3>
+        <p>Professional emails for any business situation — onboarding, chasing, updates, complaints and more.</p>
+        <div class="tool-card-tags"><span class="tag">Outlook</span><span class="tag">Templates</span><span class="tag">Bulk email</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('sharepoint')">
+        <div class="tool-card-icon"><i class="ti ti-brand-sharepoint"></i></div>
+        <h3>SharePoint setup</h3>
+        <p>Get a full SharePoint site structure, document libraries, and permission plans for your team.</p>
+        <div class="tool-card-tags"><span class="tag">Sites</span><span class="tag">Libraries</span><span class="tag">Permissions</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('excel')">
+        <div class="tool-card-icon"><i class="ti ti-table"></i></div>
+        <h3>Excel automation</h3>
+        <p>Get formulas, macros, dashboards, and data layouts explained or built for you in plain steps.</p>
+        <div class="tool-card-tags"><span class="tag">Formulas</span><span class="tag">Dashboards</span><span class="tag">Macros</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('forms')">
+        <div class="tool-card-icon"><i class="ti ti-clipboard-list"></i></div>
+        <h3>Forms and surveys</h3>
+        <p>Design Microsoft Forms for feedback, requests, onboarding, inspections, or any data collection.</p>
+        <div class="tool-card-tags"><span class="tag">Microsoft Forms</span><span class="tag">Surveys</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('teams')">
+        <div class="tool-card-icon"><i class="ti ti-brand-teams"></i></div>
+        <h3>Teams and communication</h3>
+        <p>Set up Teams channels, notification flows, and meeting templates that keep everyone aligned.</p>
+        <div class="tool-card-tags"><span class="tag">Channels</span><span class="tag">Notifications</span><span class="tag">Meetings</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('reports')">
+        <div class="tool-card-icon"><i class="ti ti-file-analytics"></i></div>
+        <h3>Reports and documents</h3>
+        <p>Generate report layouts, SOPs, policy documents, and business templates ready to use.</p>
+        <div class="tool-card-tags"><span class="tag">Word</span><span class="tag">Reports</span><span class="tag">SOPs</span></div>
+      </div>
+      <div class="tool-card" onclick="openTool('tasks')">
+        <div class="tool-card-icon"><i class="ti ti-checklist"></i></div>
+        <h3>Task and project workflows</h3>
+        <p>Build structured checklists, project plans, and Planner board setups for your team.</p>
+        <div class="tool-card-tags"><span class="tag">Planner</span><span class="tag">To-do</span><span class="tag">Projects</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Quixora. Built to make Microsoft tools accessible to everyone.<br>
+    <a href="#" onclick="showPage('assistant')">Open the assistant</a> · <a href="#" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'})">How it works</a></p>
+  </footer>
+</div>
+
+<!-- ══════════════════ ASSISTANT PAGE ══════════════════ -->
+<div id="page-assistant" class="page">
+  <div class="assistant-layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <button class="btn-secondary" style="width:100%; justify-content:center; font-size:13px; padding:8px;" onclick="resetChat()">
+          <i class="ti ti-plus"></i> New conversation
+        </button>
+      </div>
+      <div class="sidebar-section-label">Tools</div>
+      <button class="tool-nav-btn active" onclick="switchTool(this,'automate')" data-tool="automate">
+        <i class="ti ti-refresh"></i> Power Automate
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'email')" data-tool="email">
+        <i class="ti ti-mail"></i> Email templates
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'sharepoint')" data-tool="sharepoint">
+        <i class="ti ti-brand-sharepoint"></i> SharePoint
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'excel')" data-tool="excel">
+        <i class="ti ti-table"></i> Excel automation
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'forms')" data-tool="forms">
+        <i class="ti ti-clipboard-list"></i> Forms and surveys
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'teams')" data-tool="teams">
+        <i class="ti ti-brand-teams"></i> Teams
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'reports')" data-tool="reports">
+        <i class="ti ti-file-analytics"></i> Reports and docs
+      </button>
+      <button class="tool-nav-btn" onclick="switchTool(this,'tasks')" data-tool="tasks">
+        <i class="ti ti-checklist"></i> Task workflows
+      </button>
+      <div class="sidebar-section-label" style="margin-top:auto">Need help?</div>
+      <button class="tool-nav-btn" onclick="showPage('home')">
+        <i class="ti ti-arrow-left"></i> Back to home
+      </button>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-area">
+      <div class="chat-topbar">
+        <i class="ti ti-refresh chat-topbar-icon" id="topbarIcon"></i>
+        <div class="chat-topbar-info">
+          <h2 id="topbarTitle">Power Automate</h2>
+          <p id="topbarDesc">Build automation flows step by step</p>
+        </div>
+        <div class="chat-topbar-actions">
+          <button class="icon-btn" title="Clear chat" onclick="resetChat()"><i class="ti ti-refresh"></i></button>
+          <button class="icon-btn" title="Back to home" onclick="showPage('home')"><i class="ti ti-home"></i></button>
+        </div>
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="input-bar">
+        <div class="input-inner">
+          <textarea id="userInput" placeholder="Describe what you need in plain English..." rows="1"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
+            oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,130)+'px'"></textarea>
+          <button class="send-btn" onclick="sendMessage()" aria-label="Send"><i class="ti ti-send"></i></button>
+        </div>
+        <p class="input-hint">Press Enter to send · Shift+Enter for a new line</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const toolConfig = {
+  automate: {
+    icon: 'ti-refresh', title: 'Power Automate', desc: 'Build automation flows step by step',
+    chips: ['Send approval request automatically','Alert my team when a file is added','Remind staff about deadlines','Copy data between apps daily'],
+    welcome: "I can build you a complete <strong>Power Automate flow</strong> — no experience needed.<br><br>Just tell me what you want to automate. For example:",
+    system: `You are a helpful, plain-English Power Automate expert for Quixora, a business automation platform. Your users range from complete beginners to business owners who have never used Power Automate.
+
+Your job: take what the user describes and give them a clear, complete Power Automate flow they can actually set up.
+
+Format every flow response like this:
+**What this flow does:** (1 sentence)
+
+**Trigger — what starts the flow:**
+(plain description)
+
+**Steps:**
+1. (plain label): what happens
+2. (plain label): what happens
+(continue for all steps)
+
+**How to set this up in Power Automate:**
+1. Go to flow.microsoft.com and sign in
+2. Click "Create" then "Automated cloud flow"
+3. (specific step)
+(continue — be very specific and simple)
+
+**Tips:**
+- (1-2 practical tips)
+
+Always end with: "Want me to adjust anything, or add another step?"
+Keep every explanation in plain English. Never use jargon without explaining it.`
+  },
+  email: {
+    icon: 'ti-mail', title: 'Email templates', desc: 'Professional emails for any situation',
+    chips: ['Chase an overdue invoice','Welcome a new team member','Apologise to a customer','Request approval from my manager'],
+    welcome: "I'll write you a professional <strong>email template</strong> ready to send — just tell me the situation.",
+    system: `You are a plain-English business email writing assistant for Quixora. You write professional, clear email templates for real business situations.
+
+For every request, give:
+**Subject line:** (ready to use)
+
+**Email:**
+(full email body, with [PLACEHOLDERS IN BRACKETS] for anything they need to fill in — name, date, amount etc.)
+
+**Tone note:** (one line on why you wrote it this way)
+
+**Variations you can try:**
+- More formal: (what to change)
+- Shorter version: (what to remove)
+
+Always end with: "Want me to adjust the tone, length, or add anything?"
+Write naturally. Real English, not corporate speak.`
+  },
+  sharepoint: {
+    icon: 'ti-brand-sharepoint', title: 'SharePoint', desc: 'Site structures, libraries and permissions',
+    chips: ['Set up a team document library','Create a project intranet site','Organise HR documents securely','Build a shared knowledge base'],
+    welcome: "I can plan your <strong>SharePoint site</strong> structure — from document libraries to permissions.",
+    system: `You are a plain-English SharePoint planning assistant for Quixora. Help non-technical business users plan and set up SharePoint sites, document libraries, and permission structures.
+
+For every request, give:
+**What we're building:** (1 sentence)
+
+**Recommended site structure:**
+Site name: ...
+  - Library: [name] — (what goes here)
+  - Library: [name] — (what goes here)
+  - Page: [name] — (purpose)
+
+**Permissions plan:**
+- [Group/Role]: can (read / edit / manage)
+
+**How to set this up — step by step:**
+1. (specific, simple step)
+2. ...
+
+**Tips:**
+- (practical advice)
+
+Always end with: "Want me to go deeper on any part of this, or plan something different?"
+Keep it simple. Explain any SharePoint terms you use.`
+  },
+  excel: {
+    icon: 'ti-table', title: 'Excel automation', desc: 'Formulas, dashboards and macros explained',
+    chips: ['Create an invoice tracker','Build a budget dashboard','Write a formula to highlight overdue dates','Summarise data from multiple sheets'],
+    welcome: "I can help with <strong>Excel formulas, dashboards, and automation</strong> — tell me what you need.",
+    system: `You are a plain-English Excel expert for Quixora. Help non-technical business users with Excel formulas, layouts, dashboards, and basic automation (macros).
+
+For formula requests, give:
+**The formula:** (exact formula, ready to paste)
+**What it does:** (plain English, one sentence)
+**How to use it:** (exactly where to paste it and what to change)
+**Example:** (show it with example data)
+
+For dashboard or layout requests, give:
+**What to build:** (overview)
+**Column/sheet layout:**
+- Column A: [label] — (what data goes here)
+(etc.)
+**Key formulas to add:** (with plain explanations)
+**Step-by-step setup:** (numbered, simple)
+
+For macro requests, give the VBA code with every line commented in plain English.
+
+Always end with: "Want me to add anything else or explain any part in more detail?"
+Never assume they know Excel deeply. Be specific about where to click.`
+  },
+  forms: {
+    icon: 'ti-clipboard-list', title: 'Forms and surveys', desc: 'Build forms for any business need',
+    chips: ['Customer satisfaction survey','New employee onboarding form','IT support request form','Health and safety checklist'],
+    welcome: "Tell me what data you need to collect and I'll design a <strong>Microsoft Form</strong> for it.",
+    system: `You are a plain-English Microsoft Forms design assistant for Quixora. Help users design effective forms and surveys for business use.
+
+For every request, give:
+**What this form is for:** (1 sentence)
+
+**Form title:** (suggested)
+**Description shown to users:** (short, welcoming)
+
+**Questions:**
+1. [Question text] — Type: (Short answer / Multiple choice / Rating / Date / Yes/No) — Required: Yes/No
+   (If multiple choice: Options: A, B, C, D)
+2. ...
+
+**How to create this in Microsoft Forms:**
+1. Go to forms.microsoft.com
+2. Click "New Form"
+3. (specific steps)
+
+**Tips for better responses:**
+- (practical advice on getting people to fill it in)
+
+Always end with: "Want to add, remove, or change any questions?"
+Keep question language simple and friendly.`
+  },
+  teams: {
+    icon: 'ti-brand-teams', title: 'Teams', desc: 'Channels, notifications and meeting templates',
+    chips: ['Set up a project team channel','Build a weekly standup template','Create onboarding channel structure','Set up automated meeting reminders'],
+    welcome: "I'll help you get the most from <strong>Microsoft Teams</strong> — channels, notifications, and more.",
+    system: `You are a plain-English Microsoft Teams setup assistant for Quixora. Help non-technical users set up Teams effectively.
+
+For channel structure requests, give:
+**Team name:** (suggested)
+**Channel structure:**
+- General (default)
+- [Channel name]: (what it's used for)
+- [Channel name]: (what it's used for)
+(etc.)
+**Who should be in each channel and what permissions**
+
+For meeting template requests, give a full agenda template with time slots.
+
+For notification/automation flows involving Teams, describe the Power Automate steps to connect them.
+
+**How to set this up:**
+1. (specific, simple steps)
+
+Always end with: "Want me to adjust anything or add more channels?"
+Explain any Teams terms in plain English.`
+  },
+  reports: {
+    icon: 'ti-file-analytics', title: 'Reports and docs', desc: 'Report layouts, SOPs and business documents',
+    chips: ['Write a monthly business report template','Create an employee onboarding SOP','Build a project status update template','Design a company policy document'],
+    welcome: "I can build you a <strong>report or document template</strong> — ready to use straight away.",
+    system: `You are a plain-English business document writing assistant for Quixora. Create professional, ready-to-use templates for reports, SOPs, policies, and business documents.
+
+For every request, give a complete document template with:
+- A clear title and document info section (author, date, version)
+- All sections with headings
+- Placeholder text in [BRACKETS] where they fill in their own content
+- Guidance notes in (italics style shown as parentheses) for how to complete each section
+
+Make documents practical and professional but not over-formal. Plain English throughout.
+
+Always end with: "Want me to add, remove, or adjust any sections?"
+Format clearly with clear section breaks.`
+  },
+  tasks: {
+    icon: 'ti-checklist', title: 'Task workflows', desc: 'Checklists, Planner boards and project plans',
+    chips: ['New employee onboarding checklist','Product launch task plan','Weekly team review workflow','Client project handover checklist'],
+    welcome: "Tell me what process you need to manage and I'll build a <strong>task workflow or checklist</strong>.",
+    system: `You are a plain-English task and project workflow assistant for Quixora. Build clear, actionable checklists and workflow plans.
+
+For every request, give:
+**What this workflow covers:** (1 sentence)
+**Who should use it:** (role/team)
+
+**Tasks:**
+Phase/Stage name (if applicable):
+☐ Task name — Owner: [role] — When: [timing] — Notes: (any detail)
+☐ ...
+
+**Microsoft Planner setup (if applicable):**
+- Bucket: [name] (group of tasks)
+- Bucket: [name]
+
+**How to set this up in Microsoft Planner:**
+1. Go to tasks.office.com
+2. (specific steps)
+
+Always end with: "Want me to add timings, owners, or split this into more detail?"
+Keep tasks specific and actionable — no vague items.`
+  }
+};
+
+let currentTool = 'automate';
+let history = [];
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'assistant') initChat();
+}
+
+function openTool(tool) {
+  currentTool = tool;
+  showPage('assistant');
+}
+
+let chatInited = false;
+function initChat() {
+  if (!chatInited) {
+    chatInited = true;
+    renderToolUI();
+    showWelcome();
+  }
+}
+
+function renderToolUI() {
+  const t = toolConfig[currentTool];
+  document.getElementById('topbarIcon').className = 'ti ' + t.icon + ' chat-topbar-icon';
+  document.getElementById('topbarTitle').textContent = t.title;
+  document.getElementById('topbarDesc').textContent = t.desc;
+  document.querySelectorAll('.tool-nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tool === currentTool);
+  });
+}
+
+function showWelcome() {
+  const msgs = document.getElementById('messages');
+  msgs.innerHTML = '';
+  history = [];
+  const t = toolConfig[currentTool];
+  const div = mkMsg('ai');
+  const bubble = div.querySelector('.bubble');
+  bubble.innerHTML = t.welcome + '<div class="quick-chips">' +
+    t.chips.map(c => `<button class="chip" onclick="sendChip('${c.replace(/'/g,"\\'")}')">` + c + '</button>').join('') +
+    '</div>';
+  msgs.appendChild(div);
+}
+
+function switchTool(btn, tool) {
+  currentTool = tool;
+  chatInited = true;
+  renderToolUI();
+  showWelcome();
+}
+
+function resetChat() { chatInited = true; renderToolUI(); showWelcome(); }
+
+function sendChip(text) {
+  document.getElementById('userInput').value = text;
+  sendMessage();
+}
+
+async function sendMessage() {
+  const inp = document.getElementById('userInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+
+  const msgs = document.getElementById('messages');
+  const uDiv = mkMsg('user'); uDiv.querySelector('.bubble').textContent = text; msgs.appendChild(uDiv);
+  history.push({ role: 'user', content: text });
+  msgs.scrollTop = msgs.scrollHeight;
+
+  const loadDiv = mkMsg('ai');
+  loadDiv.querySelector('.bubble').innerHTML = '<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  msgs.appendChild(loadDiv);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: toolConfig[currentTool].system,
+        messages: history
+      })
+    });
+    const data = await res.json();
+    const reply = (data.content || []).map(b => b.text || '').join('');
+    history.push({ role: 'assistant', content: reply });
+    loadDiv.querySelector('.bubble').innerHTML = formatReply(reply);
+    addCopyBtn(loadDiv.querySelector('.bubble'), reply);
+  } catch(e) {
+    loadDiv.querySelector('.bubble').innerHTML = 'Something went wrong. Please try again.';
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function mkMsg(role) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + role;
+  const av = document.createElement('div');
+  av.className = 'avatar ' + role;
+  av.textContent = role === 'ai' ? 'Q' : 'You';
+  const b = document.createElement('div');
+  b.className = 'bubble ' + role;
+  d.appendChild(av); d.appendChild(b);
+  return d;
+}
+
+function formatReply(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^#{1,3} (.+)$/gm, '<strong>$1</strong>')
+    .replace(/☐/g, '☐')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+}
+
+function addCopyBtn(bubble, text) {
+  const row = document.createElement('div');
+  row.className = 'copy-row';
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.innerHTML = '<i class="ti ti-copy"></i> Copy response';
+  btn.onclick = () => {
+    navigator.clipboard.writeText(text);
+    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+    btn.classList.add('done');
+    setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy"></i> Copy response'; btn.classList.remove('done'); }, 2000);
+  };
+  row.appendChild(btn);
+  bubble.appendChild(row);
+}
+</script>
+</body>
+</html>
